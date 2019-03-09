@@ -1,6 +1,4 @@
-
 // Level 1: Automatic Table and Date Search
-
 //Fill in the table with unfiltered data
 var tableData = data;
 
@@ -22,12 +20,18 @@ var button = d3.select("#filter-btn");
 button.on("click", function() {
 
   d3.event.preventDefault();
-
+  tbody.selectAll('*').remove();
   var inputDate = d3.select("#datetime");
   var inputText = inputDate.property("value")
   var filteredData = tableData.filter(x => x.datetime === inputText);
 
-  console.log(filteredData);
+  filteredData.forEach(function(UFOreport) {
+    //console.log(UFOreport);
+    var row = tbody.append("tr");
+    Object.entries(UFOreport).forEach(function([key, value]) {
+        //console.log(key, value);
+        var cell = tbody.append("td");
+        cell.text(value)
+    })
+  })
 })
-
-// Clear the existing table
